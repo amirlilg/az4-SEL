@@ -103,7 +103,7 @@ class Gateway(viewsets.ViewSet):
 
         if service == 'book_shop':
             if book_shop_tries < 3:
-                return self.book(request.data)
+                return self.book_shop(request.data)
             else:
                 return HttpResponse('Service Unavailable', status=503)
         return HttpResponse('Bad Request', status=400)
@@ -139,7 +139,7 @@ class Gateway(viewsets.ViewSet):
         return HttpResponse(response.text, status=response.status_code)
 
     @staticmethod
-    def book(data):
+    def book_shop(data):
         global book_shop_tries
         url = base_url + 'book_shop'
         response = get_response(url, data)
