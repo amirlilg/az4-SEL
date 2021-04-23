@@ -18,6 +18,7 @@ base_url = 'http://127.0.0.1:8000/'
 signup_tries = 0
 login_tries = 0
 profile_tries = 0
+book_shop_tries = 0
 
 
 class Signup(viewsets.ViewSet):
@@ -99,6 +100,12 @@ class Gateway(viewsets.ViewSet):
                 return self.profile(request.data)
             else:
                 return HttpResponse('Service Unavailable', status=503)
+
+        if service == 'book':
+            if book_shop_tries < 3:
+                return self.book(request.data)
+            else:
+                return HttpResponse('Service Unavailable', status=503)
         return HttpResponse('Bad Request', status=400)
 
     @staticmethod
@@ -128,6 +135,16 @@ class Gateway(viewsets.ViewSet):
         response = get_response(url, data)
         if response.status_code >= 500:
             profile_tries += 1
+            return HttpResponse('Service Unavailable', status=503)
+        return HttpResponse(response.text, status=response.status_code)
+
+    @staticmethod
+    def book(data):
+        global book_shop_tries
+        url = base_url + 'book_shop'
+        response = get_response(url, data)
+        if response.status_code >= 500:
+            book_shop_tries += 1
             return HttpResponse('Service Unavailable', status=503)
         return HttpResponse(response.text, status=response.status_code)
 
