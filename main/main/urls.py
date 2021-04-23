@@ -16,10 +16,12 @@ Including another URLconf
 from django.urls import path
 
 from account.views import Gateway, Signup, Login, Profile
+from book_shop.views import BookShopGateway
 
 urlpatterns = [
     path('main', Gateway.as_view({'post': 'handle_request'})),
     path('signup', Signup.as_view({'post': 'handle_request'})),
     path('login', Login.as_view({'post': 'handle_request'})),
     path('profile', Profile.as_view({'post': 'handle_request'})),
+    path('book_shop', BookShopGateway.as_view({'post': 'handle_request'})),
 ]
