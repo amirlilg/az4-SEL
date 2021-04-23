@@ -7,6 +7,6 @@ class User(models.Model):
     password = models.CharField(max_length=50)
     email = models.CharField(max_length=150)
     profile = models.CharField(max_length=512)
-    token = models.CharField(max_length=256)
+    token = models.CharField(max_length=256, default='')
     token_expire = models.DateTimeField(default=django.utils.timezone.now)
     isAdmin = models.BooleanField(default=False)
