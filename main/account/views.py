@@ -101,7 +101,7 @@ class Gateway(viewsets.ViewSet):
             else:
                 return HttpResponse('Service Unavailable', status=503)
 
-        if service == 'book':
+        if service == 'book_shop':
             if book_shop_tries < 3:
                 return self.book(request.data)
             else:
