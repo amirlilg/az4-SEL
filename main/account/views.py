@@ -14,6 +14,7 @@ admin.username, admin.password, admin.email, admin.isAdmin, admin.profile = 'adm
     '12341234'.encode('utf-8')).digest(), 'admin@site.com', True, 'I AM ADMIN!'
 admin.save()
 
+base_url = 'http://127.0.0.1:8000/'
 signup_tries = 0
 login_tries = 0
 profile_tries = 0
@@ -103,7 +104,7 @@ class Gateway(viewsets.ViewSet):
     @staticmethod
     def signup(data):
         global signup_tries
-        url = 'http://127.0.0.1:8000/signup'
+        url = base_url + 'signup'
         response = get_response(url, data)
         if response.status_code >= 500:
             signup_tries += 1
@@ -113,7 +114,7 @@ class Gateway(viewsets.ViewSet):
     @staticmethod
     def login(data):
         global login_tries
-        url = 'http://127.0.0.1:8000/login'
+        url = base_url + 'login'
         response = get_response(url, data)
         if response.status_code >= 500:
             login_tries += 1
@@ -123,7 +124,7 @@ class Gateway(viewsets.ViewSet):
     @staticmethod
     def profile(data):
         global profile_tries
-        url = 'http://127.0.0.1:8000/profile'
+        url = base_url + 'profile'
         response = get_response(url, data)
         if response.status_code >= 500:
             profile_tries += 1
